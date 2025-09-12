@@ -1,5 +1,5 @@
 
-import fitz 
+import pymupdf as fitz
 import re
 
 def pdf_to_clean_sentences(pdf_path):

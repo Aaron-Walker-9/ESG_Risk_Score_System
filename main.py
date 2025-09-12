@@ -11,6 +11,7 @@ Change log:
 - 11/09/25: converted code into modules & created sql database to store company risk scores
 
 """
+print("ESG Risk: initalising...")
 #Import modules
 import pandas as pd
 from fetchers.pdf_parser import url_to_pdf

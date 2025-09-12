@@ -18,34 +18,35 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
+# Create a non-privileged user with a real home directory
 ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
+RUN useradd \
+    --create-home \
+    --home-dir /home/appuser \
+    --shell /bin/bash \
     --uid "${UID}" \
     appuser
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
+# Download dependencies from requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
+# Install PyTorch (CPU version)
+RUN pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+# Set Hugging Face cache path and make it writable
+ENV HF_HOME=/app/.cache/huggingface
+RUN mkdir -p ${HF_HOME} && chown -R appuser /app
+
+# Switch to non-privileged user
 USER appuser
 
-# Copy the source code into the container.
+# Copy source code
 COPY . .
 
-# Expose the port that the application listens on.
+# Expose port
 EXPOSE 8000
 
-# Run the application.
-CMD CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

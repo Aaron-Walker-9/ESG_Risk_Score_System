@@ -1,0 +1,13 @@
+beautifulsoup4==4.13.5
+fastapi==0.110.3
+nltk==3.8.1
+PyMuPDF==1.26.4
+pandas
+regex==2023.12.25
+requests==2.31.0
+tokenizers==0.22.0
+transformers==4.56.1
+urllib3==2.1.0
+uvicorn==0.29.0
+
+
