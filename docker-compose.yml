@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.5
+    container_name: esg_db
+    environment:
+      POSTGRES_DB: esgdb
+      POSTGRES_USER: esguser
+      POSTGRES_PASSWORD: esgpassword
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data   # store data inside project folder
+    ports:
+      - "5432:5432"
+    networks:
+      - esg_network
+
+  app:
+    build: .
+    container_name: esg_app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: esgdb
+      DB_USER: esguser
+      DB_PASSWORD: esgpassword
+    networks:
+      - esg_network
+    command: python main.py
+
+volumes: {}
+
+networks:
+  esg_network:
