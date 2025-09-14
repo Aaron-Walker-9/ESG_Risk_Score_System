@@ -2,35 +2,35 @@ version: "3.9"
 
 services:
   db:
-    image: postgres:14.5
+    image: postgres:15
     container_name: esg_db
+    restart: always
     environment:
       POSTGRES_DB: esgdb
       POSTGRES_USER: esguser
       POSTGRES_PASSWORD: esgpassword
     volumes:
-      - ./pgdata:/var/lib/postgresql/data   # store data inside project folder
+      - esg_db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - esg_network
 
-  app:
+  fastapi:
     build: .
-    container_name: esg_app
-    depends_on:
-      - db
+    container_name: esg_fastapi
+    restart: always
+    command: uvicorn api_main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./:/app
     environment:
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: esgdb
       DB_USER: esguser
       DB_PASSWORD: esgpassword
-    networks:
-      - esg_network
-    command: python main.py
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
 
-volumes: {}
-
-networks:
-  esg_network:
+volumes:
+  esg_db_data:
