@@ -1,16 +1,4 @@
-"""
-ESG Risk:
 
-A Real-Time ESG Risk Scoring Framework for Company Filings 
-
-Authored in 2025 by Aaron Walker
-
-
-Change log:
-- 04/09/2025: added def text_to_scored_ESG_() & def ESG_risk_score()
-- 11/09/25: converted code into modules & created sql database to store company risk scores
-
-"""
 from fastapi import FastAPI, HTTPException
 from main import run_pipeline, init_db
 
@@ -26,14 +14,14 @@ DB_PASSWORD = "esgpassword"
 # Global connection and cursor
 conn, cur = None, None
 
-@app.on_event("startup")
+@app.on_event("startup") # open connection to database and initalise tables if not already existing
 def startup_event():
     global conn, cur
     conn, cur = init_db()
     print("Database initialized and tables ensured.")
 
 
-@app.on_event("shutdown")
+@app.on_event("shutdown")# close connection to database
 def shutdown_event():
     global conn, cur
     if cur:
@@ -56,7 +44,7 @@ def check_company(company_name: str):
     raise HTTPException(status_code=404, detail="Company not found. Please submit URL.")
 
 
-@app.post("/submit_pdf")
+@app.post("/submit_pdf") # Stores company report url in database as pending for next pipeline inference run
 def submit_pdf(company_name: str, url_to_pdf: str):
     global conn, cur
     cur.execute(
@@ -71,19 +59,20 @@ def submit_pdf(company_name: str, url_to_pdf: str):
     return {"message": f"Stored {company_name} with PDF URL, will be analysed later."}
 
 
-@app.post("/update_scores")
-def update_scores():
+@app.post("/update_scores") # runs risk score model using urls from companies with pending status and updates esg risk score in esgdb
+def update_scores(): 
+    # open connection to postgres db (esgdb)
     global conn, cur
-    cur.execute("SELECT company, url FROM company_pdfs WHERE status='pending'")
-    rows = cur.fetchall()
+    cur.execute("SELECT company, url FROM company_pdfs WHERE status='pending'") # identify companies why have been submitted to db but not processed
+    rows = cur.fetchall() #return all rows where this is true
 
     if not rows:
         return {"message": "No pending companies to process."}
 
-    company_url_list = [row[1] for row in rows]
-    results = run_pipeline(company_url_list, conn, cur)
-
-    # Mark as processed
+    company_url_list = [row[1] for row in rows] # extracts urls, row[1] = url, from esgdb where status = pending
+    results = run_pipeline(company_url_list, conn, cur) #run inference model using url link to pdf
+    
+    # Update the processed company rows in esgdb to status=processed
     for row in rows:
         cur.execute("UPDATE company_pdfs SET status='processed' WHERE company=%s", (row[0],))
     conn.commit()

@@ -858,3 +858,38 @@ SyntaxError: invalid syntax. Perhaps you forgot a comma?
 [2025-09-15T21:49:51.988+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:49:51.987+0000] {dag.py:3096} INFO - Sync 1 DAGs
 [2025-09-15T21:49:52.014+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:49:52.014+0000] {dag.py:3954} INFO - Setting next_dagrun for esg_company_counter to 2025-09-15 21:00:00+00:00, run_after=2025-09-15 22:00:00+00:00
 [2025-09-15T21:49:52.036+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/esg_files_to_parse_counter.py took 0.112 seconds
+[2025-09-15T21:50:22.199+0000] {processor.py:161} INFO - Started process (PID=158) to work on /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:50:22.200+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/esg_files_to_parse_counter.py for tasks to queue
+[2025-09-15T21:50:22.201+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:50:22.201+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:50:22.227+0000] {processor.py:840} INFO - DAG(s) 'esg_company_counter' retrieved from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:50:22.265+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:50:22.265+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-09-15T21:50:22.291+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:50:22.291+0000] {dag.py:3954} INFO - Setting next_dagrun for esg_company_counter to 2025-09-15 21:00:00+00:00, run_after=2025-09-15 22:00:00+00:00
+[2025-09-15T21:50:22.315+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/esg_files_to_parse_counter.py took 0.122 seconds
+[2025-09-15T21:50:52.454+0000] {processor.py:161} INFO - Started process (PID=159) to work on /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:50:52.455+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/esg_files_to_parse_counter.py for tasks to queue
+[2025-09-15T21:50:52.456+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:50:52.456+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:50:52.477+0000] {processor.py:840} INFO - DAG(s) 'esg_company_counter' retrieved from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:50:52.511+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:50:52.510+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-09-15T21:50:52.535+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:50:52.535+0000] {dag.py:3954} INFO - Setting next_dagrun for esg_company_counter to 2025-09-15 21:00:00+00:00, run_after=2025-09-15 22:00:00+00:00
+[2025-09-15T21:50:52.556+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/esg_files_to_parse_counter.py took 0.109 seconds
+[2025-09-15T21:51:22.702+0000] {processor.py:161} INFO - Started process (PID=160) to work on /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:51:22.703+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/esg_files_to_parse_counter.py for tasks to queue
+[2025-09-15T21:51:22.704+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:51:22.704+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:51:22.725+0000] {processor.py:840} INFO - DAG(s) 'esg_company_counter' retrieved from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:51:22.754+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:51:22.754+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-09-15T21:51:22.779+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:51:22.779+0000] {dag.py:3954} INFO - Setting next_dagrun for esg_company_counter to 2025-09-15 21:00:00+00:00, run_after=2025-09-15 22:00:00+00:00
+[2025-09-15T21:51:22.799+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/esg_files_to_parse_counter.py took 0.104 seconds
+[2025-09-15T21:51:52.926+0000] {processor.py:161} INFO - Started process (PID=161) to work on /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:51:52.927+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/esg_files_to_parse_counter.py for tasks to queue
+[2025-09-15T21:51:52.927+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:51:52.927+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:51:52.948+0000] {processor.py:840} INFO - DAG(s) 'esg_company_counter' retrieved from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:51:52.978+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:51:52.978+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-09-15T21:51:53.001+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:51:53.001+0000] {dag.py:3954} INFO - Setting next_dagrun for esg_company_counter to 2025-09-15 21:00:00+00:00, run_after=2025-09-15 22:00:00+00:00
+[2025-09-15T21:51:53.029+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/esg_files_to_parse_counter.py took 0.110 seconds
+[2025-09-15T21:52:23.150+0000] {processor.py:161} INFO - Started process (PID=162) to work on /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:52:23.151+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/esg_files_to_parse_counter.py for tasks to queue
+[2025-09-15T21:52:23.152+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:52:23.151+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:52:23.173+0000] {processor.py:840} INFO - DAG(s) 'esg_company_counter' retrieved from /opt/airflow/dags/esg_files_to_parse_counter.py
+[2025-09-15T21:52:23.206+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:52:23.206+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-09-15T21:52:23.234+0000] {logging_mixin.py:188} INFO - [2025-09-15T21:52:23.233+0000] {dag.py:3954} INFO - Setting next_dagrun for esg_company_counter to 2025-09-15 21:00:00+00:00, run_after=2025-09-15 22:00:00+00:00
+[2025-09-15T21:52:23.264+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/esg_files_to_parse_counter.py took 0.120 seconds
