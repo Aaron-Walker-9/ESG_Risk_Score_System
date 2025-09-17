@@ -4,7 +4,7 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.operators.python import PythonOperator
 import logging
 from datetime import datetime, timedelta
-from esg_risk_score_system.main import run_pipeline
+from main import run_pipeline
 
 default_args = {
     'owner':'airflow',
@@ -39,7 +39,7 @@ def process_pending():
         logger.info("Finished processing pending companies and updated company statuses.")
         
     except Exception as e:
-        logger.info(f"Failed to process: {str(e)}", exc_info=True)
+        logger.error(f"Failed to process: {str(e)}", exc_info=True)
         raise
     
     finally:
