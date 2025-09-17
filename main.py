@@ -16,13 +16,26 @@ print("ESG Risk: initializing...")
 
 import os
 import re
+import psycopg2
 import urllib.request
 from pathlib import Path
 from processors.text_cleaner import pdf_to_clean_sentences
 from processors.risk_model import clean_text_to_scored_ESG_df
 from processors.risk_score import calculate_risk_score
 
-def init_db(cur):
+
+DB_HOST = os.getenv("DB_HOST", "db")
+DB_PORT = int(os.getenv("DB_PORT", 5432))
+DB_NAME = os.getenv("DB_NAME", "esgdb")
+DB_USER = os.getenv("DB_USER", "esguser")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "esgpassword")
+
+def init_db():
+    conn = psycopg2.connect(
+        host=DB_HOST, port=DB_PORT,
+        dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD
+    )
+    cur = conn.cursor()
     # Ensure tables exist, this def is used by api_main on app startup
     cur.execute("""
     CREATE TABLE IF NOT EXISTS company_esg_scores (
@@ -34,6 +47,7 @@ def init_db(cur):
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """)
+    
     cur.execute("""
     CREATE TABLE IF NOT EXISTS company_pdfs (
         id SERIAL PRIMARY KEY,
@@ -43,7 +57,8 @@ def init_db(cur):
         added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """)
-
+    conn.commit()
+    return conn, cur
 # ---------------- ESG Pipeline ----------------
 def run_pipeline(company_url_list, conn=None, cur=None):
     """

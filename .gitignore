@@ -2,3 +2,5 @@ data/
 pgdata/
 .cache/
 .cache/huggingface/
+logs/
+logs_backup/

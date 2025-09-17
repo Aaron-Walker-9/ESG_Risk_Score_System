@@ -31,7 +31,7 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 .cache/huggingface/
-
+logs/
 
 LICENSE
 README.md
