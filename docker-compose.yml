@@ -1,4 +1,4 @@
-#version: "3.9"
+version: "3.9"
 
 services:
   db:
@@ -49,7 +49,9 @@ services:
 
   # Airflow Scheduler
   airflow-scheduler:
-    image: apache/airflow:2.9.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     restart: always
     depends_on:
       - airflow_db
@@ -61,6 +63,7 @@ services:
       AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       PYTHONPATH: "/opt/airflow:/app"
+      AIRFLOW_CONN_ESG_POSTGRES: "postgresql+psycopg2://esguser:esgpassword@db:5432/esgdb"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -70,7 +73,9 @@ services:
 
   # Airflow Webserver
   airflow-webserver:
-    image: apache/airflow:2.9.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     restart: always
     depends_on:
       - airflow-scheduler
@@ -81,6 +86,7 @@ services:
       AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       PYTHONPATH: "/opt/airflow:/app"
+      AIRFLOW_CONN_ESG_POSTGRES: "postgresql+psycopg2://esguser:esgpassword@db:5432/esgdb"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -92,7 +98,9 @@ services:
 
   # Airflow Worker
   airflow-worker:
-    image: apache/airflow:2.9.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     restart: always
     depends_on:
       - airflow-scheduler
@@ -103,6 +111,7 @@ services:
       AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       PYTHONPATH: "/opt/airflow:/app"
+      AIRFLOW_CONN_ESG_POSTGRES: "postgresql+psycopg2://esguser:esgpassword@db:5432/esgdb"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -112,7 +121,9 @@ services:
 
   # One-time initialization (creates Airflow DB + admin user)
   airflow-init:
-    image: apache/airflow:2.9.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     depends_on:
       - airflow_db
       - redis
@@ -123,6 +134,7 @@ services:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow_db/airflow
       AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@airflow_db/airflow
       AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+      AIRFLOW_CONN_ESG_POSTGRES: "postgresql+psycopg2://esguser:esgpassword@db:5432/esgdb"
 
 volumes:
   esg_db_data:

@@ -6,3 +6,7 @@ FROM apache/airflow:2.9.0
 # Copy requirements and install as airflow user
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Ensure airflow can find user-installed packages__ below are added to try get airflow libs seen
+ENV PATH="/home/airflow/.local/bin:${PATH}"
+ENV PYTHONPATH="/opt/airflow:/app"
