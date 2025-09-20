@@ -11,7 +11,7 @@ def clean_text_to_scored_ESG_df(clean_text):
         # In simple words, the tokenizer prepares the text for the model and the model classifies the text
     name = "ESGBERT/EnvironmentalBERT-environmental" # path to download from HuggingFace
     tokenizer = AutoTokenizer.from_pretrained(name)
-    model = AutoModelForSequenceClassification.from_pretrained(name)
+    model = AutoModelForSequenceClassification.from_pretrained(name, safe_serialization=True)
     # The pipeline combines tokenizer and model to one process.
     pipe_env = pipeline("text-classification", model=model, tokenizer=tokenizer)
 
@@ -19,13 +19,13 @@ def clean_text_to_scored_ESG_df(clean_text):
     # Social model.
     name = "ESGBERT/SocialBERT-social"
     tokenizer = AutoTokenizer.from_pretrained(name)
-    model = AutoModelForSequenceClassification.from_pretrained(name)
+    model = AutoModelForSequenceClassification.from_pretrained(name, safe_serialization=True)
     pipe_soc = pipeline("text-classification", model=model, tokenizer=tokenizer)
 
     #load Governance model.
     name = "ESGBERT/GovernanceBERT-governance"
     tokenizer = AutoTokenizer.from_pretrained(name)
-    model = AutoModelForSequenceClassification.from_pretrained(name)
+    model = AutoModelForSequenceClassification.from_pretrained(name, safe_serialization=True)
     pipe_gov = pipeline("text-classification", model=model, tokenizer=tokenizer)
     
     #load sentiment model
