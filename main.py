@@ -145,4 +145,3 @@ def run_pipeline(company_url_list, conn=None, cur=None):
 # "https://www.responsibilityreports.com/HostedData/ResponsibilityReports/PDF/OTC_SSDIY_2024.pdf",
 # "https://www.responsibilityreports.com/HostedData/ResponsibilityReports/PDF/OTC_BAMGF_2024.pdf",
 # "https://www.responsibilityreports.com/HostedData/ResponsibilityReports/PDF/OTC_MBGAF_2024.pdf"
-#
